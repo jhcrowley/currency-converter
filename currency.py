@@ -13,13 +13,22 @@ def convert_currency(base):
         data = response.json()
         return data["data"]
     except Exception as e:
-        print(e)
+        print("Invalid currency")
         return None
     
-data = convert_currency("CAD")
-del data["CAD"]
-for ticker, value in data.items():
-    print(f"{ticker}: {value}")
+while True:
+    base = input("Enter the base currency (q for quit): ").upper()
+
+    if base == "Q":
+        break
+    
+    data = convert_currency(base)
+    if not data:
+        continue
+    
+    del data[base]
+    for ticker, value in data.items():
+        print(f"{ticker}: {value}")
 
 
 
